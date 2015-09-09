@@ -10,7 +10,7 @@ There's two main files this produces, both in the output directory.
 
 ## [emails.csv](https://github.com/benhamner/hillary-clinton-emails/blob/master/output/emails.csv)
 
-This file currently contains the following fields:
+This file is ~20mb and currently contains the following fields:
 
  - **SourceMonth** - month the email was released
  - **SourceFile** - zip file containing the email PDF
@@ -27,7 +27,7 @@ This file currently contains the following fields:
 
 ## [database.sqlite](https://github.com/benhamner/hillary-clinton-emails/blob/master/output/database.sqlite)
 
-This SQLite database contains the Emails table, with the corresponding fields from emails.csv.
+This ~20mb SQLite database contains the Emails table, with the corresponding fields from emails.csv.
 
 # Contributing: next steps
 
@@ -37,7 +37,7 @@ This SQLite database contains the Emails table, with the corresponding fields fr
 
 # Running the download and extraction code
 
-Running `make all` in the root directory will download the data and create emails.csv as well as database.sqlite, assuming you have all the requirements installed.
+Running `make all` in the root directory will download the data (~162mb total) and create emails.csv as well as database.sqlite, assuming you have all the requirements installed.
 
 # Requirements
 
