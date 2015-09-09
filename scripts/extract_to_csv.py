@@ -18,9 +18,9 @@ def extract_field(regex, raw_text):
 
 def extract_features(raw_text):
     return {
-        "From": extract_field(r"From:(.*?)\n", raw_text),
-        "To": extract_field(r"To:(.*?)\n", raw_text),
-        "Cc": extract_field(r"Cc:(.*?)\n", raw_text),
+        "FromRaw": extract_field(r"From:(.*?)\n", raw_text),
+        "ToRaw": extract_field(r"To:(.*?)\n", raw_text),
+        "CcRaw": extract_field(r"Cc:(.*?)\n", raw_text),
         "DateSent": extract_field(r"Sent:(.*?)\n", raw_text),
         "Subject": extract_field(r"Subject:(.*?)\n", raw_text),
         "CaseNumber": extract_field(r"Case No. (.+?-\d+-\d+)", raw_text),
@@ -29,13 +29,13 @@ def extract_features(raw_text):
         "ReleaseInPartOrFull": extract_release_type(raw_text)
     }
 
-f = open("working/emails.csv", "w")
+f = open("output/emails.csv", "w")
 writer = csv.writer(f)
 writer.writerow(["SourceMonth",
                  "SourceFile",
-                 "From",
-                 "To",
-                 "Cc",
+                 "FromRaw",
+                 "ToRaw",
+                 "CcRaw",
                  "DateSent",
                  "Subject",
                  "CaseNumber",
@@ -54,9 +54,9 @@ for subdir, dirs, files in os.walk("working/text"):
         features = extract_features(raw_text)
         writer.writerow([month,
                          os.path.splitext(filename)[0]+".pdf",  
-                         features["From"],
-                         features["To"],
-                         features["Cc"],
+                         features["FromRaw"],
+                         features["ToRaw"],
+                         features["CcRaw"],
                          features["DateSent"],
                          features["Subject"],
                          features["CaseNumber"],

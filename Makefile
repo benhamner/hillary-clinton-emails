@@ -29,9 +29,21 @@ working/text/.sentinel: working/pdfs/.sentinel
 	touch working/text/.sentinel
 text: working/text/.sentinel
 
-working/emails.csv: working/text/.sentinel
+output/emails.csv: working/text/.sentinel
+	mkdir -p output
 	python scripts/extract_to_csv.py
-csv: working/emails.csv
+csv: output/emails.csv
+
+working/emailsNoHeader.csv: output/emails.csv
+	tail +2 $^ > $@
+
+output/database.sqlite: working/emailsNoHeader.csv
+	sqlite3 -echo $@ < scripts/sqliteImport.sql
+
+sqlite: output/database.sqlite
+
+all: csv sqlite
 
 clean:
 	rm -rf working
+	rm -rf output
