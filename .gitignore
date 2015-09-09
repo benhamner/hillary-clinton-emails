@@ -1,3 +1,7 @@
+# ignore input data files
+input
+working
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
