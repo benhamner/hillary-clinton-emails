@@ -4,9 +4,9 @@ import re
 from subprocess import call
 
 def extract_release_type(raw_text):
-    if "RELEASE IN PART" in raw_text:
+    if re.search(r"RELEASE\s+IN\s+PART", raw_text):
         return "RELEASE IN PART"
-    if "RELEASE IN FULL" in raw_text:
+    if re.search(r"RELEASE\s+IN\s+FULL", raw_text):
         return "RELEASE IN FULL"
     return "UNKNOWN" 
 
@@ -23,6 +23,9 @@ def extract_features(raw_text):
         "Cc": extract_field(r"Cc:(.*?)\n", raw_text),
         "DateSent": extract_field(r"Sent:(.*?)\n", raw_text),
         "Subject": extract_field(r"Subject:(.*?)\n", raw_text),
+        "CaseNumber": extract_field(r"Case No. (.+?-\d+-\d+)", raw_text),
+        "DocNumber": extract_field(r"Doc No. (.\d+)", raw_text),
+        "DateReleased": extract_field(r"Date: (\d\d/\d\d/\d\d\d\d)", raw_text),
         "ReleaseInPartOrFull": extract_release_type(raw_text)
     }
 
@@ -35,6 +38,9 @@ writer.writerow(["SourceMonth",
                  "Cc",
                  "DateSent",
                  "Subject",
+                 "CaseNumber",
+                 "DocNumber",
+                 "DateReleased",
                  "ReleaseInPartOrFull",
                  "RawText"])
 
@@ -53,6 +59,9 @@ for subdir, dirs, files in os.walk("working/text"):
                          features["Cc"],
                          features["DateSent"],
                          features["Subject"],
+                         features["CaseNumber"],
+                         features["DocNumber"],
+                         features["DateReleased"],
                          features["ReleaseInPartOrFull"],
                          raw_text])
 
