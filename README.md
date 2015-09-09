@@ -10,18 +10,18 @@ There's two main files this produces, both in the output directory.
 
 This file currently contains the following fields:
 
- - *SourceMonth* - month the email was released
- - *SourceFile* - zip file containing the email PDF
- - *FromRaw* - raw text of the extracted FROM address field
- - *ToRaw* - raw text of the extracted TO address field
- - *CcRaw* - raw text of the extracted CC address field
- - *DateSent* - raw text of the extracted Date address field
- - *Subject* - raw text of the extracted Subject
- - *CaseNumber* - FOIA case number
- - *DocNumber* - FOIA document number
- - *DateReleased* - date the document was released
- - *ReleaseInPartOrFull* - "RELEASE IN PART", "RELEASE IN FULL" or "UNKNOWN"
- - *RawText* - raw text extracted from the PDF via pdftotext
+ - **SourceMonth** - month the email was released
+ - **SourceFile** - zip file containing the email PDF
+ - **FromRaw** - raw text of the extracted FROM address field
+ - **ToRaw** - raw text of the extracted TO address field
+ - **CcRaw** - raw text of the extracted CC address field
+ - **DateSent** - raw text of the extracted Date address field
+ - **Subject** - raw text of the extracted Subject
+ - **CaseNumber** - FOIA case number
+ - **DocNumber** - FOIA document number
+ - **DateReleased** - date the document was released
+ - **ReleaseInPartOrFull** - "RELEASE IN PART", "RELEASE IN FULL" or "UNKNOWN"
+ - **RawText** - raw text extracted from the PDF via pdftotext
 
 ## [database.sqlite](https://github.com/benhamner/hillary-clinton-emails/blob/master/output/database.sqlite)
 
