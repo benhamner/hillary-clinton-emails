@@ -6,7 +6,7 @@ This repo contains code to transform Hillary's emails from raw PDF documents to 
 
 There's two main files this produces, both in the output directory.
 
-## [emails.csv](https://github.com/benhamner/hillary-clinton-emails/blob/master/LICENSE)
+## [emails.csv](https://github.com/benhamner/hillary-clinton-emails/blob/master/output/emails.csv)
 
 This file currently contains the following fields:
 
@@ -23,9 +23,9 @@ This file currently contains the following fields:
  - *ReleaseInPartOrFull* - "RELEASE IN PART", "RELEASE IN FULL" or "UNKNOWN"
  - *RawText* - raw text extracted from the PDF via pdftotext
 
-## [database.sqlite](https://github.com/benhamner/hillary-clinton-emails/blob/master/LICENSE)
+## [database.sqlite](https://github.com/benhamner/hillary-clinton-emails/blob/master/output/database.sqlite)
 
-This SQLite database contains the Emails table, with the corresponding fields from Emails.csv.
+This SQLite database contains the Emails table, with the corresponding fields from emails.csv.
 
 # Contributing: next steps
 
