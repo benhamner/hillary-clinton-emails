@@ -2,6 +2,8 @@
 
 This repo contains code to transform Hillary's emails from raw PDF documents to a SQLite database.
 
+This is a work in progress - any help normalizing and extracting this data's much appreciated!
+
 # Extracted data
 
 There's two main files this produces, both in the output directory.
