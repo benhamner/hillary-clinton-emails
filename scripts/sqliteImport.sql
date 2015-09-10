@@ -43,7 +43,7 @@ CREATE TABLE EmailReceivers (
 .import "working/noHeader/Aliases.csv" Aliases
 .import "working/noHeader/EmailReceivers.csv" EmailReceivers
 
-CREATE INDEX emails_frompersonid_ix ON Emails (FromPersonId);
+CREATE INDEX emails_senderpersonid_ix ON Emails (SenderPersonId);
 CREATE INDEX emails_docnumber_ix ON Emails (DocNumber);
 
 CREATE INDEX aliases_personid_ix ON Aliases (PersonId);
