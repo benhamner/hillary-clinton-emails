@@ -32,25 +32,43 @@ working/text/.sentinel: working/pdfs/.sentinel
 	touch working/text/.sentinel
 text: working/text/.sentinel
 
-output/emails.csv: working/text/.sentinel input/metadata.csv
+input/emailsNoId.csv: working/text/.sentinel input/metadata.csv
+	python scripts/emailsNoId.py
+
+output/emails.csv: input/emailsNoId.csv
 	mkdir -p output
-	python scripts/emails.py
+	python scripts/persons.py
+output/persons.csv: output/emails.csv
+output/aliases.csv: output/emails.csv
+output/emailRecipients.csv: output/emails.csv
 emails: output/emails.csv
 
 output/people.csv: output/emails.csv input/HRCEMAIL_names.csv
 	python scripts/people.py   
 
-working/emailsNoHeader.csv: output/emails.csv
+working/noHeader/emails.csv: output/emails.csv
+	mkdir -p working/noHeader
 	tail +2 $^ > $@
 
-output/database.sqlite: working/emailsNoHeader.csv
+working/noHeader/persons.csv: output/persons.csv
+	mkdir -p working/noHeader
+	tail +2 $^ > $@
+
+working/noHeader/aliases.csv: output/aliases.csv
+	mkdir -p working/noHeader
+	tail +2 $^ > $@
+
+working/noHeader/emailRecipients.csv: output/emailRecipients.csv
+	mkdir -p working/noHeader
+	tail +2 $^ > $@
+
+output/database.sqlite: working/noHeader/emails.csv working/noHeader/persons.csv working/noHeader/aliases.csv working/noHeader/emailRecipients.csv
+	-rm output/database.sqlite
 	sqlite3 -echo $@ < scripts/sqliteImport.sql
 
 sqlite: output/database.sqlite
 
-csv: emails people
-
-all: csv sqlite
+all: emails sqlite
 
 clean:
 	rm -rf working

@@ -27,7 +27,7 @@ def metadata_timestamp_to_string(timestamp):
 metadata = pd.read_csv("input/metadata.csv")
 metadata["DocNumber"] = [os.path.splitext(os.path.split(pdf_link)[1])[0] for pdf_link in metadata["pdfLink"]]
 
-f = open("output/emails.csv", "w")
+f = open("input/emailsNoId.csv", "w")
 writer = csv.writer(f)
 writer.writerow(["DocNumber",
                  "MetadataSubject",
