@@ -38,10 +38,10 @@ CREATE TABLE EmailRecipients (
     EmailId INTEGER,
     PersonId INTEGER);
 
-.import "working/noHeader/emails.csv" Emails
-.import "working/noHeader/persons.csv" Persons
-.import "working/noHeader/aliases.csv" Aliases
-.import "working/noHeader/emailRecipients.csv" EmailRecipients
+.import "working/noHeader/Emails.csv" Emails
+.import "working/noHeader/Persons.csv" Persons
+.import "working/noHeader/Aliases.csv" Aliases
+.import "working/noHeader/EmailRecipients.csv" EmailRecipients
 
 CREATE INDEX emails_frompersonid_ix ON Emails (FromPersonId);
 CREATE INDEX emails_docnumber_ix ON Emails (DocNumber);

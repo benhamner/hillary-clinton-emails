@@ -28,52 +28,49 @@ unzip: working/pdfs/.sentinel
 
 working/rawText/.sentinel: working/pdfs/.sentinel
 	mkdir -p working/rawText
-	python scripts/pdftotext.py
+	python scripts/pdfToRawText.py
 	touch working/rawText/.sentinel
 
 working/bodyText/.sentinel: working/rawText/.sentinel
 	mkdir -p working/bodyText
-	python scripts/filterToBody.py
+	python scripts/bodyText.py
 	touch working/bodyText/.sentinel
 text: working/bodyText/.sentinel
 
 input/emailsNoId.csv: working/rawText/.sentinel working/bodyText/.sentinel input/metadata.csv
 	python scripts/emailsNoId.py
 
-output/emails.csv: input/emailsNoId.csv
+output/Emails.csv: input/emailsNoId.csv
 	mkdir -p output
-	python scripts/persons.py
-output/persons.csv: output/emails.csv
-output/aliases.csv: output/emails.csv
-output/emailRecipients.csv: output/emails.csv
-emails: output/emails.csv
+	python scripts/outputCsvs.py
+output/Persons.csv: output/Emails.csv
+output/Aliases.csv: output/Emails.csv
+output/EmailRecipients.csv: output/Emails.csv
+csv: output/Emails.csv output/Persons.csv output/Aliases.csv output/EmailRecipients.csv
 
-output/people.csv: output/emails.csv input/HRCEMAIL_names.csv
-	python scripts/people.py   
-
-working/noHeader/emails.csv: output/emails.csv
+working/noHeader/Emails.csv: output/Emails.csv
 	mkdir -p working/noHeader
 	tail +2 $^ > $@
 
-working/noHeader/persons.csv: output/persons.csv
+working/noHeader/Persons.csv: output/Persons.csv
 	mkdir -p working/noHeader
 	tail +2 $^ > $@
 
-working/noHeader/aliases.csv: output/aliases.csv
+working/noHeader/Aliases.csv: output/Aliases.csv
 	mkdir -p working/noHeader
 	tail +2 $^ > $@
 
-working/noHeader/emailRecipients.csv: output/emailRecipients.csv
+working/noHeader/EmailRecipients.csv: output/EmailRecipients.csv
 	mkdir -p working/noHeader
 	tail +2 $^ > $@
 
-output/database.sqlite: working/noHeader/emails.csv working/noHeader/persons.csv working/noHeader/aliases.csv working/noHeader/emailRecipients.csv
+output/database.sqlite: working/noHeader/Emails.csv working/noHeader/Persons.csv working/noHeader/Aliases.csv working/noHeader/EmailRecipients.csv
 	-rm output/database.sqlite
 	sqlite3 -echo $@ < scripts/sqliteImport.sql
 
 sqlite: output/database.sqlite
 
-all: emails sqlite
+all: csv sqlite
 
 clean:
 	rm -rf working
