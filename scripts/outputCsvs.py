@@ -55,7 +55,7 @@ for (i, email) in emails.iterrows():
         emails.loc[i, "SenderPersonId"] = from_person_id
         if email["ExtractedFrom"] != "":
             add_alias(aliases, persons, normalize_address(email["ExtractedFrom"]), email["MetadataFrom"])
-    to_addresses = [email["MetadataTo"]] + email["ExtractedTo"].split(";")
+    to_addresses = email["MetadataTo"].split(";") + email["ExtractedTo"].split(";")
     to_addresses = list(set([normalize_address(x) for x in to_addresses]))
     if "" in to_addresses:
         to_addresses.remove("")
