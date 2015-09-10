@@ -26,13 +26,18 @@ working/pdfs/.sentinel: $(INPUT_FILES)
 	touch working/pdfs/.sentinel
 unzip: working/pdfs/.sentinel
 
-working/text/.sentinel: working/pdfs/.sentinel
-	mkdir -p working/text
+working/rawText/.sentinel: working/pdfs/.sentinel
+	mkdir -p working/rawText
 	python scripts/pdftotext.py
-	touch working/text/.sentinel
-text: working/text/.sentinel
+	touch working/rawText/.sentinel
 
-input/emailsNoId.csv: working/text/.sentinel input/metadata.csv
+working/bodyText/.sentinel: working/rawText/.sentinel
+	mkdir -p working/bodyText
+	python scripts/filterToBody.py
+	touch working/bodyText/.sentinel
+text: working/bodyText/.sentinel
+
+input/emailsNoId.csv: working/rawText/.sentinel working/bodyText/.sentinel input/metadata.csv
 	python scripts/emailsNoId.py
 
 output/emails.csv: input/emailsNoId.csv

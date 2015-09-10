@@ -21,6 +21,7 @@ CREATE TABLE Emails (
     ExtractedDocNumber TEXT,
     ExtractedDateReleased TEXT,
     ExtractedReleaseInPartOrFull TEXT,
+    ExtractedBodyText TEXT,
     RawText TEXT);
 
 CREATE TABLE Persons (

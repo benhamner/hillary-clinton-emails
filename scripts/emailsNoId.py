@@ -47,10 +47,11 @@ writer.writerow(["DocNumber",
                  "ExtractedDocNumber",
                  "ExtractedDateReleased",
                  "ExtractedReleaseInPartOrFull",
+                 "ExtractedBodyText",
                  "RawText"])
 
-for subdir, dirs, files in os.walk("working/text"):
-    if subdir=="working/text":
+for subdir, dirs, files in os.walk("working/rawText"):
+    if subdir=="working/rawText":
         continue
     for filename in files:
         doc_number = os.path.splitext(filename)[0]
@@ -60,6 +61,7 @@ for subdir, dirs, files in os.walk("working/text"):
         loc = locs[0]
         filepath = os.path.join(subdir, filename)
         raw_text = open(filepath).read()
+        body_text = open(os.path.join("working/bodyText", os.path.split(subdir)[1], filename)).read()
         writer.writerow([doc_number,
                          metadata["subject"][loc],
                          metadata["to"][loc],
@@ -78,6 +80,7 @@ for subdir, dirs, files in os.walk("working/text"):
                          extract_field(r"Doc No. (.\d+)", raw_text),
                          extract_field(r"Date: (\d\d/\d\d/\d\d\d\d)", raw_text),
                          extract_release_type(raw_text),
+                         body_text,
                          raw_text])
 
 f.close()

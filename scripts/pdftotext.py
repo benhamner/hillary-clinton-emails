@@ -4,7 +4,7 @@ from subprocess import call
 for subdir, dirs, files in os.walk("working/pdfs"):
     if subdir=="working/pdfs":
         continue
-    newdir = os.path.join("working/text", os.path.split(subdir)[1])
+    newdir = os.path.join("working/rawText", os.path.split(subdir)[1])
     if not os.path.exists(newdir):
         call(["mkdir", newdir])
     for filename in files:

@@ -2,21 +2,28 @@ import os
 import re
 from subprocess import call
 
-num_files = 0
-num_from  = 0
-num_subj  = 0
-
 def filter_body(text):
-    text = re.sub(r"(\n|^)UNCLASSIFIED.*", "", text)
-    text = re.sub(r"(\n|^)CONFIDENTIAL.*", "", text)
-    text = re.sub(r"(\n|^)Classified by.*", "", text)
-    return text
+    patterns = [r"\x0c",
+                r"(\n|^)UNCLASSIFIED.*",
+                r"(\n|^)CONFIDENTIAL.*",
+                r"(\n|^)Classified by.*",
+                r"(\n|^)Attachments:.*"]
+    for repeat in range(3):
+        for pattern in patterns:
+            text = re.sub(pattern, "", text)
+    return text.strip()
 
 def extract_body(raw_text):
     m = re.search(r"\nSubject.*?\n(.*?)(Original Message|From:)", raw_text, re.DOTALL)
     if m:
         return filter_body(m.groups()[0])
     m = re.search(r"\nSubject.*?\n(.+)", raw_text, re.DOTALL)
+    if m:
+        return filter_body(m.groups()[0])
+    m = re.search(r"\nTo:.*?\n(.*?)(Original Message|From:)", raw_text, re.DOTALL)
+    if m:
+        return filter_body(m.groups()[0])
+    m = re.search(r"\nTo:.*?\n(.+)", raw_text, re.DOTALL)
     if m:
         return filter_body(m.groups()[0])
     return ""
@@ -36,12 +43,3 @@ for subdir, dirs, files in os.walk("working/rawText"):
         f = open(output_file, "w")
         f.write(extract_body(raw_text))
         f.close()
-        num_files += 1
-        if "From:" in raw_text:
-            num_from += 1
-        if "Subject:" in raw_text:
-            num_subj += 1
-
-print(num_files)
-print(num_from)
-print(num_subj)
