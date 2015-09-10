@@ -25,7 +25,7 @@ alias_person["AliasName"] = [normalize_address(alias) for alias in alias_person[
 
 persons = pd.DataFrame(columns=["Id", "Name"])
 aliases = pd.DataFrame(columns=["Id", "Alias", "PersonId"])
-email_receivers = pd.DataFrame(columns=["Id", "EmailId", "PersonId"])
+email_receivers = pd.DataFrame(columns=["Id", "EmailId", "PersonId"]).astype(int)
 
 def add_alias(aliases, persons, alias_name, person_name):
     if len(np.where(aliases["Alias"]==alias_name)[0])>0:
@@ -74,7 +74,7 @@ for (i, email) in emails.iterrows():
 
 persons.to_csv("output/Persons.csv", index=False)
 aliases.to_csv("output/Aliases.csv", index=False)
-emails.to_csv("output/Emails.csv", index=False)
-email_receivers.to_csv("output/EmailReceivers.csv", index=False)
+emails.to_csv("output/Emails.csv", index=False, float_format="%0.0f")
+email_receivers.to_csv("output/EmailReceivers.csv", index=False, float_format="%0.0f")
 
 log.close()
