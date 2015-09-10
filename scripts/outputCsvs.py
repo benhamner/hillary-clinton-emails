@@ -59,7 +59,7 @@ for (i, email) in emails.iterrows():
         if email["ExtractedFrom"] != "":
             add_alias(aliases, persons, normalize_address(email["ExtractedFrom"]), from_person_name)
     to_addresses = email["MetadataTo"].split(";") + email["ExtractedTo"].split(";")
-    to_addresses = list(set([normalize_address(x) for x in to_addresses]))
+    to_addresses = sorted(list(set([normalize_address(x) for x in to_addresses])))
     if "" in to_addresses:
         to_addresses.remove("")
     for to_address in to_addresses:

@@ -50,10 +50,10 @@ writer.writerow(["DocNumber",
                  "ExtractedBodyText",
                  "RawText"])
 
-for subdir, dirs, files in os.walk("working/rawText"):
+for subdir, dirs, files in sorted(os.walk("working/rawText")):
     if subdir=="working/rawText":
         continue
-    for filename in files:
+    for filename in sorted(files):
         doc_number = os.path.splitext(filename)[0]
         locs = np.where(metadata["DocNumber"]==doc_number)[0]
         if len(locs) != 1:
