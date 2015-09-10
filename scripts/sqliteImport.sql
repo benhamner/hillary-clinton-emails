@@ -6,7 +6,7 @@ CREATE TABLE Emails (
     MetadataSubject TEXT,
     MetadataTo TEXT,
     MetadataFrom TEXT,
-    FromPersonId INTEGER,
+    SenderPersonId INTEGER,
     MetadataDateSent TEXT,
     MetadataDateReleased TEXT,
     MetadataPdfLink TEXT,
@@ -33,7 +33,7 @@ CREATE TABLE Aliases (
     Alias TEXT,
     PersonId INTEGER);
 
-CREATE TABLE EmailRecipients (
+CREATE TABLE EmailReceivers (
     Id INTEGER PRIMARY KEY,
     EmailId INTEGER,
     PersonId INTEGER);
@@ -41,12 +41,12 @@ CREATE TABLE EmailRecipients (
 .import "working/noHeader/Emails.csv" Emails
 .import "working/noHeader/Persons.csv" Persons
 .import "working/noHeader/Aliases.csv" Aliases
-.import "working/noHeader/EmailRecipients.csv" EmailRecipients
+.import "working/noHeader/EmailReceivers.csv" EmailReceivers
 
 CREATE INDEX emails_frompersonid_ix ON Emails (FromPersonId);
 CREATE INDEX emails_docnumber_ix ON Emails (DocNumber);
 
 CREATE INDEX aliases_personid_ix ON Aliases (PersonId);
 
-CREATE INDEX emailrecipients_emailid_ix ON EmailRecipients (EmailId);
-CREATE INDEX emailrecipients_personid_ix ON EmailRecipients (PersonId);
+CREATE INDEX emailreceivers_emailid_ix ON EmailReceivers (EmailId);
+CREATE INDEX emailreceivers_personid_ix ON EmailReceivers (PersonId);

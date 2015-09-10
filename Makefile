@@ -45,8 +45,8 @@ output/Emails.csv: input/emailsNoId.csv
 	python scripts/outputCsvs.py
 output/Persons.csv: output/Emails.csv
 output/Aliases.csv: output/Emails.csv
-output/EmailRecipients.csv: output/Emails.csv
-csv: output/Emails.csv output/Persons.csv output/Aliases.csv output/EmailRecipients.csv
+output/EmailReceivers.csv: output/Emails.csv
+csv: output/Emails.csv output/Persons.csv output/Aliases.csv output/EmailReceivers.csv
 
 working/noHeader/Emails.csv: output/Emails.csv
 	mkdir -p working/noHeader
@@ -60,11 +60,11 @@ working/noHeader/Aliases.csv: output/Aliases.csv
 	mkdir -p working/noHeader
 	tail +2 $^ > $@
 
-working/noHeader/EmailRecipients.csv: output/EmailRecipients.csv
+working/noHeader/EmailReceivers.csv: output/EmailReceivers.csv
 	mkdir -p working/noHeader
 	tail +2 $^ > $@
 
-output/database.sqlite: working/noHeader/Emails.csv working/noHeader/Persons.csv working/noHeader/Aliases.csv working/noHeader/EmailRecipients.csv
+output/database.sqlite: working/noHeader/Emails.csv working/noHeader/Persons.csv working/noHeader/Aliases.csv working/noHeader/EmailReceivers.csv
 	-rm output/database.sqlite
 	sqlite3 -echo $@ < scripts/sqliteImport.sql
 
