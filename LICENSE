@@ -1,6 +1,11 @@
-The MIT License (MIT)
+This project is released under the MIT License (copied below).
 
-Copyright (c) 2015 Ben Hamner
+It includes data from the [WSJ's Clinton Email Cruncher](https://github.com/wsjdata/clinton-email-cruncher), which is also MIT Licensed.
+
+The MIT License (MIT)
+=====================
+
+Copyright (c) 2015 Ben Hamner, Dow Jones, other contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
