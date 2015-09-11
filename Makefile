@@ -69,7 +69,12 @@ output/database.sqlite: working/noHeader/Emails.csv working/noHeader/Persons.csv
 	sqlite3 -echo $@ < scripts/sqliteImport.sql
 
 output/hashes.txt: output/database.sqlite
-	md5 output/* > output/hashes.txt
+	-rm output/hashes.txt
+	echo "Current git commit:" >> output/hashes.txt
+	git rev-parse HEAD >> output/hashes.txt
+	echo "\nCurrent ouput md5 hashes:" >> output/hashes.txt
+	md5 output/*.csv >> output/hashes.txt
+	md5 output/*.sqlite >> output/hashes.txt
 hashes: output/hashes.txt
 
 sqlite: output/database.sqlite
