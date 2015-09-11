@@ -2,13 +2,13 @@
 
 *This is a work in progress - any help normalizing and extracting this data's much appreciated!*
 
-This repo contains code to transform Hillary's emails released through the FOIA request from raw PDF documents to CSV files and a SQLite database, making it easier to understand and analyze the documents.
+This repo contains code to transform [Hillary Clinton's emails released through the FOIA request](https://foia.state.gov/Search/Results.aspx?collection=Clinton_Email) from raw PDF documents to CSV files and a SQLite database, making it easier to understand and analyze the documents.
 
 Note that conversion is very imprecise: there's plenty of room to improve the PDF conversion, the sender/receiver extraction, and the body text extraction.
 
 # Extracted data
 
-There's five main files this produces, all in the output directory.
+There are five main output files this produces: four CSV files and one SQLite database.
 
 Note that each table contains a numeric `Id` column. This `Id` column is only meant to be used to join the tables: it is internally consistent, but each entity may have a different `Id` when the data's updated.
 
@@ -64,15 +64,20 @@ This SQLite database contains all of the above tables (Emails, Persons, Aliases,
 
  - Improve the From/To address extraction mechanisms
  - Normalize various email address representations to people
- - Create People.csv, From.csv, To.csv, Cc.csv tables
+ - Improve the BodyText extraction
 
 # Running the download and extraction code
 
-Running `make all` in the root directory will download the data (~162mb total) and create emails.csv as well as database.sqlite, assuming you have all the requirements installed.
+Running `make all` in the root directory will download the data (~162mb total) and create the output files, assuming you have all the requirements installed.
 
 # Requirements
 
+*This has only been tested on OS X, it may or may not work on other operating systems.*
+
  - python3
+   - pandas
+   - arrow
+   - numpy
  - pdftotext (utility to transform a PDF document to text)
  - GNU make
  - sqlite3
