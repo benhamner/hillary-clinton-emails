@@ -4,6 +4,10 @@
 
 This repo contains code to transform [Hillary Clinton's emails released through the FOIA request](https://foia.state.gov/Search/Results.aspx?collection=Clinton_Email) from raw PDF documents to CSV files and a SQLite database, making it easier to understand and analyze the documents.
 
+**[A zip of the extracted data is available for download on Kaggle](https://www.kaggle.com/c/hillary-clinton-emails/data)**.
+
+Check out some analytics on this data on **[Kaggle Scripts](https://www.kaggle.com/c/hillary-clinton-emails/scripts)**.
+
 Note that conversion is very imprecise: there's plenty of room to improve the PDF conversion, the sender/receiver extraction, and the body text extraction.
 
 # Extracted data
