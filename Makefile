@@ -79,7 +79,7 @@ hashes: output/hashes.txt
 
 sqlite: output/database.sqlite
 
-release: output/database.sqlite
+release: output/database.sqlite output/hashes.txt
 	zip -r -X output/release-`date -u +'%Y-%m-%d-%H-%M-%S'` output/*
 
 all: csv sqlite hashes
