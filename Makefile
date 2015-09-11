@@ -68,9 +68,16 @@ output/database.sqlite: working/noHeader/Emails.csv working/noHeader/Persons.csv
 	-rm output/database.sqlite
 	sqlite3 -echo $@ < scripts/sqliteImport.sql
 
+output/hashes.txt: output/database.sqlite
+	md5 output/* > output/hashes.txt
+hashes: output/hashes.txt
+
 sqlite: output/database.sqlite
 
-all: csv sqlite
+release: output/database.sqlite
+	zip -r -X output/release-`date -u +'%Y-%m-%d-%H-%M-%S'` output/*
+
+all: csv sqlite hashes
 
 clean:
 	rm -rf working
